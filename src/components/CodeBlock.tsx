@@ -34,14 +34,16 @@ export default function CodeBlock({
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
-    const isDark = document.documentElement.classList.contains("dark");
-    setTheme(isDark ? "dark" : "light");
-
-    const observer = new MutationObserver(() => {
+    // Deferred initial theme read (see DocContent.tsx for rationale).
+    const update = () =>
       setTheme(document.documentElement.classList.contains("dark") ? "dark" : "light");
-    });
+    const raf = requestAnimationFrame(update);
+    const observer = new MutationObserver(update);
     observer.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
-    return () => observer.disconnect();
+    return () => {
+      cancelAnimationFrame(raf);
+      observer.disconnect();
+    };
   }, []);
 
   const handleCopy = () => {

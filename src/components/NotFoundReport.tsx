@@ -18,7 +18,10 @@ export default function NotFoundReport() {
   const [shown, setShown] = useState(1);
 
   useEffect(() => {
-    if (typeof window !== "undefined") setPath(window.location.pathname);
+    // The static 404.html can't know the path server-side; read it on the
+    // next frame (deferred so the effect doesn't trigger a cascading render).
+    const raf = requestAnimationFrame(() => setPath(window.location.pathname));
+    return () => cancelAnimationFrame(raf);
   }, []);
 
   const lines: { t: string; c?: string }[] = [

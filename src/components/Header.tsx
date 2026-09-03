@@ -8,6 +8,7 @@ import { Menu, X } from "lucide-react";
 import { Github } from "@lobehub/icons";
 import LogoMark from "./LogoMark";
 import ThemeToggle from "./ThemeToggle";
+import useMounted from "./useMounted";
 
 const NAV_ITEMS = [
   { href: "/quickstart", label: "Quickstart" },
@@ -21,12 +22,8 @@ const NAV_ITEMS = [
 
 export default function Header({ version = "0.5.0" }: { version?: string }) {
   const [open, setOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
+  const mounted = useMounted();
   const pathname = usePathname();
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   // Lock page scroll while the mobile overlay is open.
   useEffect(() => {

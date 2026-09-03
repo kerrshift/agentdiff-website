@@ -12,11 +12,15 @@ import { Moon, Sun } from "lucide-react";
 export default function ThemeToggle({ className = "" }: { className?: string }) {
   const [theme, setTheme] = useState<"light" | "dark">("light");
 
-  // Sync with whatever the pre-paint script decided.
+  // Sync with whatever the pre-paint script decided (deferred to the next
+  // frame; the icon already rendered a frame behind, so timing is unchanged).
   useEffect(() => {
-    setTheme(
-      document.documentElement.classList.contains("dark") ? "dark" : "light"
+    const raf = requestAnimationFrame(() =>
+      setTheme(
+        document.documentElement.classList.contains("dark") ? "dark" : "light"
+      )
     );
+    return () => cancelAnimationFrame(raf);
   }, []);
 
   const toggleTheme = () => {

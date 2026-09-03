@@ -41,14 +41,17 @@ export default function DocContent({ content }: { content: string }) {
   const [theme, setTheme] = useState<"light" | "dark">("light");
 
   useEffect(() => {
-    const isDark = document.documentElement.classList.contains("dark");
-    setTheme(isDark ? "dark" : "light");
-
-    const observer = new MutationObserver(() => {
+    // Initial theme read is deferred to the next frame (same visual timing as
+    // the old sync read, but without the cascading-render lint error).
+    const update = () =>
       setTheme(document.documentElement.classList.contains("dark") ? "dark" : "light");
-    });
+    const raf = requestAnimationFrame(update);
+    const observer = new MutationObserver(update);
     observer.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
-    return () => observer.disconnect();
+    return () => {
+      cancelAnimationFrame(raf);
+      observer.disconnect();
+    };
   }, []);
 
   const dark = theme === "dark";
@@ -63,19 +66,19 @@ export default function DocContent({ content }: { content: string }) {
     if (typeof c === "string") return c;
     if (typeof c === "number") return String(c);
     if (Array.isArray(c)) return (c as React.ReactNode[]).map(textFromChildren).join("");
-    if (c && typeof c === "object" && (c as any).props !== undefined) {
-      const p = (c as { props: { children?: React.ReactNode } }).props;
-      return p.children ? textFromChildren(p.children) : "";
+    if (c && typeof c === "object" && "props" in c) {
+      const p = (c as { props?: { children?: React.ReactNode } }).props;
+      return p?.children ? textFromChildren(p.children) : "";
     }
     return "";
   }
 
   const markdownComponents = {
-    h2: ({ children }: any) => {
+    h2: ({ children }: { children?: React.ReactNode }) => {
       const id = slugifyHeading(textFromChildren(children));
       return <h2 id={id}>{children}</h2>;
     },
-    h3: ({ children }: any) => {
+    h3: ({ children }: { children?: React.ReactNode }) => {
       const id = slugifyHeading(textFromChildren(children));
       return <h3 id={id}>{children}</h3>;
     },

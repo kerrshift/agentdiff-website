@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import Link from "next/link";
 import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { Github } from "@lobehub/icons";
 import Reveal from "./Reveal";
@@ -266,13 +267,13 @@ export default function ActionSection() {
           <span className="text-[11px] text-(--faint) font-medium">
             Everything here is a real flag you can run today.
           </span>
-          <a
+          <Link
             href="/docs"
             className="inline-flex items-center gap-1.5 text-sm font-medium text-(--fg) hover:text-(--muted) transition-colors duration-150"
           >
             See the full CLI
             <ArrowUpRight className="w-4 h-4" />
-          </a>
+          </Link>
         </div>
         </Reveal>
 

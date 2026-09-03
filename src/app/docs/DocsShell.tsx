@@ -8,6 +8,7 @@ import { Menu, X, BookOpen } from "lucide-react";
 import { Github } from "@lobehub/icons";
 import LogoMark from "../../components/LogoMark";
 import ThemeToggle from "../../components/ThemeToggle";
+import useMounted from "../../components/useMounted";
 
 export interface DocMeta {
   slug: string;
@@ -36,13 +37,9 @@ export default function DocsShell({
 }) {
   const pathname = usePathname();
   const router = useRouter();
-  const [mounted, setMounted] = useState(false);
   const [navDrawerOpen, setNavDrawerOpen] = useState(false);
   const [docsSidebarOpen, setDocsSidebarOpen] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const mounted = useMounted();
 
   // Legacy inbound links of the form /docs#old-slug still land on the right
   // guide even though guides are real routes now.
@@ -54,11 +51,15 @@ export default function DocsShell({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
 
-  // Close the mobile drawer after navigating to another guide.
-  useEffect(() => {
+  // Close the mobile drawer after navigating to another guide. Render-time
+  // state adjustment (the documented alternative to setState-in-effect):
+  // React re-renders immediately without committing the stale drawer state.
+  const [prevPathname, setPrevPathname] = useState(pathname);
+  if (prevPathname !== pathname) {
+    setPrevPathname(pathname);
     setDocsSidebarOpen(false);
     setNavDrawerOpen(false);
-  }, [pathname]);
+  }
 
   const activeSlug =
     docs.find((d) => pathname === `/docs/${d.slug}`)?.slug ?? "";
