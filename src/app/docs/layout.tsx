@@ -1,26 +1,7 @@
 import type { Metadata } from "next";
-import fs from "fs";
-import path from "path";
 import DocsShell from "./DocsShell";
 import { getDocMetas } from "../../lib/docs";
-
-/** Read the version string from the package `__init__.py` at build time. */
-function readPackageVersion(): string {
-  try {
-    const initPath = path.join(
-      process.cwd(),
-      "..",
-      "src",
-      "agentdiff",
-      "__init__.py",
-    );
-    const source = fs.readFileSync(initPath, "utf-8");
-    const match = source.match(/^__version__\s*=\s*"([^"]+)"/m);
-    return match ? match[1] : "0.0.0";
-  } catch {
-    return "0.0.0";
-  }
-}
+import { getPackageVersion } from "../../lib/getPackageVersion";
 
 export const metadata: Metadata = {
   title: {
@@ -34,13 +15,13 @@ export const metadata: Metadata = {
   },
 };
 
-export default function DocsLayout({
+export default async function DocsLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   const docs = getDocMetas();
-  const version = readPackageVersion();
+  const version = await getPackageVersion();
 
   return (
     <DocsShell docs={docs} version={version}>
