@@ -7,11 +7,12 @@ import CodeBlock from "@/components/CodeBlock";
 const SITE_URL = "https://agentdiff.app";
 
 export const metadata: Metadata = {
-  title: "Quickstart — Zero to Gated Agent in 5 Minutes",
+  title: "Quickstart — Claude Code spend report and CI gate",
   description:
-    "Install, record, diff, and gate with AgentDiff. Step-by-step developer onboarding with CLI commands, pytest integration, and GitHub Action workflows.",
+    "Run the AgentDiff spend report on your Claude Code sessions in one command, or set up the trajectory regression gate for agents you build.",
   keywords: [
     "AgentDiff quickstart",
+    "Claude Code cost report",
     "agent trajectory testing tutorial",
     "AI agent regression CI/CD",
     "record agent trace",
@@ -24,7 +25,7 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
   openGraph: {
     title: "Quickstart | AgentDiff",
-    description: "Install, record, diff, and gate — AgentDiff in five minutes.",
+    description: "One command for your Claude Code spend report; five minutes to a CI gate.",
     url: `${SITE_URL}/quickstart`,
     siteName: "AgentDiff",
     type: "website",
@@ -32,7 +33,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Quickstart | AgentDiff",
-    description: "Install, record, diff, and gate — AgentDiff in five minutes.",
+    description: "One command for your Claude Code spend report; five minutes to a CI gate.",
   },
 };
 
@@ -114,20 +115,20 @@ export default function QuickstartPage() {
           <Reveal>
             <div className="max-w-4xl">
               <span className="text-xs uppercase tracking-[0.18em] text-(--faint) block mb-4 font-medium">
-                Developer Onboarding
+                Quickstart
               </span>
               <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-[-0.035em] text-(--fg) leading-[1.08]">
-                Zero to gated agent in <span className="text-emerald-500/90 dark:text-emerald-400">five minutes</span>.
+                Your spend report in <span className="text-emerald-500/90 dark:text-emerald-400">one command</span>.
               </h1>
               <p className="mt-6 text-base sm:text-lg lg:text-xl text-(--muted) leading-relaxed max-w-3xl font-normal">
-                No API keys. No external accounts. No telemetry daemons. One clean install, one recorded golden trace, and an automated regression gate protecting every PR.
+                No API keys, no accounts, nothing uploaded. Start with the Claude Code spend report; if you build your own agents, the CI gate is further down this page.
               </p>
 
               {/* Fast Proof Points */}
               <div className="mt-8 flex flex-wrap items-center gap-6 text-xs text-(--muted)">
                 <span className="flex items-center gap-2">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                  <span className="text-(--fg) font-semibold">5-Minute Setup</span>
+                  <span className="text-(--fg) font-semibold">~10 seconds to a report</span>
                 </span>
                 <span className="text-(--border) select-none">•</span>
                 <span className="flex items-center gap-2">
@@ -145,14 +146,64 @@ export default function QuickstartPage() {
         </div>
       </section>
 
-      {/* 2. STEP-BY-STEP MARKETING PIPELINE */}
-      <section className="py-24 sm:py-32 bg-transparent">
+      {/* 2. CLAUDE CODE SPEND REPORT */}
+      <section id="spend-report" className="py-24 sm:py-32 bg-transparent scroll-mt-20">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <Reveal>
+            <div className="max-w-3xl mb-12">
+              <span className="text-xs uppercase tracking-[0.18em] text-(--faint) block mb-3 font-medium">
+                Claude Code spend report
+              </span>
+              <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold tracking-[-0.035em] text-(--fg) leading-[1.1]">
+                Run it. Read it. Change one habit.
+              </h2>
+              <p className="mt-5 text-base text-(--muted) leading-relaxed">
+                AgentDiff reads the session logs Claude Code keeps in <code className="text-xs text-(--fg) font-mono bg-(--surface-2) px-1.5 py-0.5 rounded border border-(--border)">~/.claude/projects</code> and prints where the money went and what was avoidable.
+              </p>
+            </div>
+          </Reveal>
+          <Reveal delay={80}>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              <div className="rounded-2xl border border-(--border) bg-(--surface) overflow-hidden shadow-2xs">
+                <CodeBlock
+                  language="bash"
+                  filename="terminal"
+                  code={`# Run once with uv (no install)
+uvx --from agent-trajectory-diff agentdiff
+
+# Or install it
+pip install agent-trajectory-diff
+agentdiff
+
+# Inside a Claude Code session, prefix with !
+!uvx --from agent-trajectory-diff agentdiff`}
+                />
+              </div>
+              <div className="rounded-2xl border border-(--border) bg-(--surface) overflow-hidden shadow-2xs">
+                <CodeBlock
+                  language="bash"
+                  filename="options"
+                  code={`agentdiff                   # last 7 days
+agentdiff --since 30d       # 24h, 7d, 30d, 12w … or all
+agentdiff --project api     # filter by project name
+agentdiff --top 10          # more findings and sessions
+agentdiff --json            # machine-readable
+agentdiff --path ~/.claude  # another config dir`}
+                />
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* 3. CI GATE: STEP-BY-STEP */}
+      <section id="ci-gate" className="py-24 sm:py-32 bg-transparent scroll-mt-20">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           
           <Reveal>
             <div className="max-w-3xl mb-16 sm:mb-20">
               <span className="text-xs uppercase tracking-[0.18em] text-(--faint) block mb-3 font-medium">
-                The 4-Step Flow
+                CI gate · for agents you build
               </span>
               <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold tracking-[-0.035em] text-(--fg) leading-[1.1]">
                 From local execution to automated CI gate.

@@ -12,15 +12,14 @@ import useMounted from "./useMounted";
 
 const NAV_ITEMS = [
   { href: "/quickstart", label: "Quickstart" },
-  { href: "/features", label: "Features" },
+  { href: "/features", label: "CI Gate" },
   { href: "/adapters", label: "Adapters" },
   { href: "/action", label: "GitHub Action" },
-  { href: "/compare", label: "Compare" },
   { href: "/docs", label: "Docs" },
   { href: "/blog", label: "Blog" },
 ];
 
-export default function Header({ version = "0.5.0" }: { version?: string }) {
+export default function Header({ version = "0.6.0" }: { version?: string }) {
   const [open, setOpen] = useState(false);
   const mounted = useMounted();
   const pathname = usePathname();
@@ -100,14 +99,13 @@ export default function Header({ version = "0.5.0" }: { version?: string }) {
 
             {/* Bottom Utilities */}
             <div className="pt-4 border-t border-(--border) flex flex-col gap-3">
-              <a
-                href="https://github.com/apps/agentdiff-ci"
-                target="_blank"
-                rel="noopener noreferrer"
+              <Link
+                href="/#how-it-works"
+                onClick={() => setOpen(false)}
                 className="inline-flex items-center justify-center gap-2 px-3.5 py-2 rounded-xl bg-(--fg) text-(--bg) text-xs font-semibold hover:opacity-90 transition-opacity"
               >
-                <span>Install GitHub App</span>
-              </a>
+                <span>Get started</span>
+              </Link>
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <ThemeToggle />
@@ -185,14 +183,12 @@ export default function Header({ version = "0.5.0" }: { version?: string }) {
 
             {/* Right Action Utilities: App Install + Theme + GitHub */}
             <div className="hidden lg:flex items-center gap-2">
-              <a
-                href="https://github.com/apps/agentdiff-ci"
-                target="_blank"
-                rel="noopener noreferrer"
+              <Link
+                href="/#how-it-works"
                 className="inline-flex items-center justify-center px-3 py-1 rounded-full text-xs font-semibold bg-(--fg) text-(--bg) hover:opacity-90 transition-opacity shadow-2xs"
               >
-                <span>Install App</span>
-              </a>
+                <span>Get started</span>
+              </Link>
               <ThemeToggle />
               <a
                 href="https://github.com/kerrshift/agentdiff"

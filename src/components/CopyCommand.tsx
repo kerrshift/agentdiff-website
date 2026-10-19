@@ -3,20 +3,31 @@
 import React, { useState } from "react";
 import { Copy, Check } from "lucide-react";
 
-const CMD = "pip install agent-trajectory-diff";
+export const RUN_COMMAND = "uvx --from agent-trajectory-diff agentdiff";
+export const PIP_COMMAND = "pip install agent-trajectory-diff";
 
-export default function CopyCommand({ dark = false, bare = false }: { dark?: boolean; bare?: boolean }) {
+export default function CopyCommand({
+  cmd = RUN_COMMAND,
+  dark = false,
+  bare = false,
+  wrap = false,
+}: {
+  cmd?: string;
+  dark?: boolean;
+  bare?: boolean;
+  wrap?: boolean;
+}) {
   const [copied, setCopied] = useState(false);
 
   const copy = () => {
-    navigator.clipboard.writeText(CMD);
+    navigator.clipboard.writeText(cmd);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
 
   return (
     <div
-      className={`inline-flex items-center gap-2 ${
+      className={`${wrap ? "flex items-start justify-between w-full" : "inline-flex items-center max-w-full"} gap-2 ${
         bare
           ? "px-1 py-1"
           : `rounded-lg px-3 py-2 sm:px-4 sm:py-2.5 ${
@@ -25,19 +36,17 @@ export default function CopyCommand({ dark = false, bare = false }: { dark?: boo
       }`}
     >
       <span
-        className={`text-xs sm:text-[13px] font-mono whitespace-nowrap ${
+        className={`text-xs sm:text-[13px] font-mono ${wrap ? "break-all text-left" : "truncate"} ${
           dark ? "text-[#E8EAED]" : "text-(--fg)"
         }`}
       >
-        <span className={`${dark ? "text-(--faint)" : "text-(--faint)"} select-none`}>
-          ${" "}
-        </span>
-        {CMD}
+        <span className="text-(--faint) select-none">${" "}</span>
+        {cmd}
       </span>
       <button
         onClick={copy}
-        aria-label="Copy install command"
-        className={`flex-shrink-0 transition-colors duration-150 ${
+        aria-label="Copy command"
+        className={`flex-shrink-0 transition-colors duration-150 cursor-pointer ${
           dark ? "text-(--faint) hover:text-white" : "text-(--faint) hover:text-(--fg)"
         }`}
       >
