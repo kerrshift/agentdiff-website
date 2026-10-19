@@ -173,7 +173,7 @@ export default function QuickstartPage() {
 /agentdiff:report
 
 # Any terminal with Node 18+
-npx agentdiff
+npx @kerrshift/agentdiff
 
 # Python: run once with uv, or install
 uvx --from agent-trajectory-diff agentdiff

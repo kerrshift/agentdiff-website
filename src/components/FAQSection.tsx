@@ -12,7 +12,7 @@ const FAQS = [
   },
   {
     q: "How do I run it?",
-    a: "Inside Claude Code, install the plugin with `/plugin install agentdiff --marketplace kerrshift/agentdiff` and run `/agentdiff:report`. In a terminal, `npx agentdiff` (Node 18+) or `uvx --from agent-trajectory-diff agentdiff` (uv). To install it, use `pip install agent-trajectory-diff`, `pipx install agent-trajectory-diff` or `npm i -g agentdiff`. The command is `agentdiff`. Both the npm launcher and the plugin work with whatever you have: uv, pipx, or Python 3.10+.",
+    a: "Inside Claude Code, install the plugin with `/plugin install agentdiff --marketplace kerrshift/agentdiff` and run `/agentdiff:report`. In a terminal, `npx @kerrshift/agentdiff` (Node 18+) or `uvx --from agent-trajectory-diff agentdiff` (uv). To install it, use `pip install agent-trajectory-diff`, `pipx install agent-trajectory-diff` or `npm i -g @kerrshift/agentdiff`. The command is `agentdiff`. Both the npm launcher and the plugin work with whatever you have: uv, pipx, or Python 3.10+.",
   },
   {
     q: "How accurate are the dollar amounts?",

@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { Copy, Check } from "lucide-react";
 
-export const RUN_COMMAND = "npx agentdiff";
+export const RUN_COMMAND = "npx @kerrshift/agentdiff";
 export const UVX_COMMAND = "uvx --from agent-trajectory-diff agentdiff";
 export const PLUGIN_COMMAND = "/plugin install agentdiff --marketplace kerrshift/agentdiff";
 export const PIP_COMMAND = "pip install agent-trajectory-diff";

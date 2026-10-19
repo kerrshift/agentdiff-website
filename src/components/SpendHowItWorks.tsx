@@ -26,7 +26,7 @@ const WAYS = [
   },
 ];
 
-const ALSO = [PIP_COMMAND, "pipx install agent-trajectory-diff", "npm i -g agentdiff", "/agentdiff:report --since 30d"];
+const ALSO = [PIP_COMMAND, "pipx install agent-trajectory-diff", "npm i -g @kerrshift/agentdiff", "/agentdiff:report --since 30d"];
 
 const OPTIONS = [
   ["agentdiff", "last 7 days (same as agentdiff sessions)"],
