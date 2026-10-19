@@ -6,18 +6,17 @@ import { ArrowRight, Check, Copy, Terminal } from "lucide-react";
 import { Github } from "@lobehub/icons";
 import Reveal from "./Reveal";
 
-const PIP_COMMAND = "pip install agent-trajectory-diff";
-const GITHUB_ACTION_SNIPPET = `- name: Run AgentDiff Gate
-  uses: agentdiff/action@v1
+const RUN_COMMAND = "uvx --from agent-trajectory-diff agentdiff";
+const GITHUB_ACTION_SNIPPET = `- uses: kerrshift/agentdiff/.github/actions/agentdiff-check@v0.6.0
   with:
-    baseline: tests/golden_baseline.json
-    max-divergence: 0.25`;
+    baseline: baselines/default.envelope.json
+    candidate: traces/candidate.json`;
 
 export default function ClosingCTA() {
   const [copiedPip, setCopiedPip] = useState(false);
 
   const handleCopyPip = () => {
-    navigator.clipboard.writeText(PIP_COMMAND);
+    navigator.clipboard.writeText(RUN_COMMAND);
     setCopiedPip(true);
     setTimeout(() => setCopiedPip(false), 2000);
   };
@@ -38,29 +37,29 @@ export default function ClosingCTA() {
             {/* Left Column: Bold Value Proposition & Action Buttons */}
             <div className="lg:col-span-7 space-y-6">
               <span className="text-xs uppercase tracking-[0.18em] text-(--faint) block font-medium">
-                Ready to Deploy
+                Try it now
               </span>
 
               <h2 className="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-[-0.035em] text-(--fg) leading-[1.08]">
-                Stop agent regressions before they merge.
+                Find out where your agent budget went.
               </h2>
 
               <p className="text-base sm:text-lg text-(--muted) leading-relaxed font-normal max-w-xl">
-                Install in seconds. Compare candidate executions against golden baselines, block infinite tool loops, and protect your token budget on every PR.
+                One command, about ten seconds, nothing uploaded. Building your own agents too? The same package gates them in CI.
               </p>
 
               {/* Primary CTA Buttons */}
               <div className="flex flex-wrap items-center gap-3.5 pt-2">
                 <Link
-                  href="/quickstart"
+                  href="/#how-it-works"
                   className="px-8 py-3.5 rounded-full bg-(--fg) text-(--bg) text-sm font-semibold hover:opacity-90 transition-opacity inline-flex items-center gap-2 shadow-sm"
                 >
-                  <span>Read Quickstart Guide</span>
+                  <span>How it works</span>
                   <ArrowRight className="w-4 h-4" />
                 </Link>
 
                 <Link
-                  href="https://github.com/agentdiff/agentdiff"
+                  href="https://github.com/kerrshift/agentdiff"
                   target="_blank"
                   rel="noreferrer"
                   className="px-7 py-3.5 rounded-full border border-(--border) bg-(--surface) text-(--fg) text-sm font-semibold hover:border-(--border-strong) hover:bg-(--surface-2) transition-all inline-flex items-center gap-2"
@@ -78,11 +77,11 @@ export default function ClosingCTA() {
                 </span>
                 <span className="flex items-center gap-2">
                   <Check className="w-4 h-4 text-emerald-400 shrink-0" />
-                  <span>Zero Cloud Dependencies</span>
+                  <span>Runs locally, nothing uploaded</span>
                 </span>
                 <span className="flex items-center gap-2">
                   <Check className="w-4 h-4 text-emerald-400 shrink-0" />
-                  <span>Sub-5ms Graph Alignment</span>
+                  <span>No account or API key</span>
                 </span>
               </div>
             </div>
@@ -99,13 +98,13 @@ export default function ClosingCTA() {
                     <span className="w-2.5 h-2.5 rounded-full bg-(--border)" />
                     <span className="ml-2 text-xs font-medium text-(--muted)">bash</span>
                   </div>
-                  <span className="text-[11px] text-emerald-400 font-mono font-semibold">PyPI Release</span>
+                  <span className="text-[11px] text-emerald-400 font-mono font-semibold">Spend report</span>
                 </div>
 
                 <div className="p-4 flex items-center justify-between gap-3 font-mono text-xs text-(--fg)">
                   <div className="flex items-center gap-2 truncate">
                     <span className="text-(--faint) select-none">$</span>
-                    <span className="truncate">{PIP_COMMAND}</span>
+                    <span className="truncate">{RUN_COMMAND}</span>
                   </div>
                   <button
                     onClick={handleCopyPip}
@@ -121,7 +120,7 @@ export default function ClosingCTA() {
               <div className="rounded-2xl border border-(--border) bg-(--bg) overflow-hidden shadow-2xs">
                 <div className="px-4 py-2.5 bg-(--surface-2)/60 border-b border-(--border) flex items-center justify-between">
                   <span className="text-xs text-(--muted) font-medium">.github/workflows/ci.yml</span>
-                  <span className="text-[11px] text-(--muted) font-mono">CI Gate</span>
+                  <span className="text-[11px] text-(--muted) font-mono">CI gate (optional)</span>
                 </div>
                 <pre className="p-4 font-mono text-[11px] text-(--fg)/85 leading-[1.6] overflow-x-auto">
                   {GITHUB_ACTION_SNIPPET}

@@ -30,13 +30,18 @@ const themeScript = `
 export const metadata: Metadata = {
   metadataBase: new URL("https://agentdiff.app"),
   title: {
-    default: "AgentDiff - Trajectory Regression Testing for AI Agents",
+    default: "AgentDiff - See what your AI coding agent did, and what it cost",
     template: "%s | AgentDiff",
   },
   description:
-    "AgentDiff compares agent execution traces as DAGs in CI/CD - automatically detecting trajectory drift, redundant tool loops, and cost regressions.",
+    "One command reads your local Claude Code session logs and shows where the money went and what was avoidable: long context, cache rebuilds, stuck retries. Plus a trajectory regression gate for agents you build.",
   applicationName: "AgentDiff",
   keywords: [
+    "Claude Code cost",
+    "Claude Code usage",
+    "AI coding agent spend",
+    "token usage report",
+    "prompt caching",
     "AI agents",
     "LLM testing",
     "trajectory diff",
@@ -72,8 +77,8 @@ export const metadata: Metadata = {
     apple: "/favicon.svg",
   },
   openGraph: {
-    title: "AgentDiff - Trajectory Regression Testing for AI Agents",
-    description: "Compare agent execution traces as DAGs. Detect drift, loops, and cost regressions in CI/CD.",
+    title: "AgentDiff - See what your AI coding agent did, and what it cost",
+    description: "A local spend report for Claude Code: where the money went and what was avoidable. One command, nothing uploaded.",
     url: "https://agentdiff.app",
     siteName: "AgentDiff",
     type: "website",
@@ -90,8 +95,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "AgentDiff - Trajectory Regression Testing for AI Agents",
-    description: "Compare agent execution traces as DAGs. Detect drift, loops, and cost regressions in CI/CD.",
+    title: "AgentDiff - See what your AI coding agent did, and what it cost",
+    description: "A local spend report for Claude Code: where the money went and what was avoidable. One command, nothing uploaded.",
     images: ["/og.png"],
   },
   appleWebApp: {
@@ -118,7 +123,7 @@ const jsonLd = {
       url: "https://agentdiff.app/",
       name: "AgentDiff",
       description:
-        "Trajectory regression testing for AI agents. Diff agent execution traces as DAGs and block drift, tool loops, and cost spikes in CI/CD.",
+        "See what your AI coding agent did, and what it cost. A local spend report for Claude Code sessions, plus a trajectory regression gate for agents you build.",
       publisher: { "@id": "https://agentdiff.app/#organization" },
     },
     {
@@ -136,13 +141,13 @@ const jsonLd = {
       operatingSystem: "Any",
       url: "https://agentdiff.app/",
       description:
-        "AgentDiff compares AI agent execution traces as DAGs in CI/CD, detecting trajectory drift, tool loops, and cost regressions.",
+        "AgentDiff reads local Claude Code session logs and reports where spend went and what was avoidable. It also gates agents you build in CI against trajectory regressions.",
       offers: {
         "@type": "Offer",
         price: "0",
         priceCurrency: "USD",
       },
-      softwareVersion: "0.5.0",
+      softwareVersion: "0.6.0",
     },
   ],
 };

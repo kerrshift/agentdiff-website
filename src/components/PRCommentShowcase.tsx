@@ -696,7 +696,7 @@ export default function PRCommentShowcase() {
               <div className="pt-4 border-t border-[#d0d7de] dark:border-[#21262d] flex flex-wrap items-center justify-between gap-4 text-xs text-[#656d76] dark:text-[#7d8590]">
                 <div className="flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-[#1a7f37] dark:bg-[#238636]" />
-                  <span>AgentDiff GitHub Action v0.1.0 installed across 12 repos</span>
+                  <span>Example AgentDiff gate comment</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <span className="hover:underline cursor-pointer text-[#0969da] dark:text-[#58a6ff]">View workflow runs</span>

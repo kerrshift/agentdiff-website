@@ -1,11 +1,10 @@
 import Header from "../components/Header";
 import Hero from "../components/Hero";
-import ProblemSolution from "../components/ProblemSolution";
-import BlueprintWorkspace from "../components/BlueprintWorkspace";
-import FeaturesGrid from "../components/FeaturesGrid";
+import SpendFindings from "../components/SpendFindings";
+import SpendHowItWorks from "../components/SpendHowItWorks";
+import GateIntro from "../components/GateIntro";
 import PRCommentShowcase from "../components/PRCommentShowcase";
 import IntegrationShowcase from "../components/IntegrationShowcase";
-import StackFitSection from "../components/StackFitSection";
 import FAQSection from "../components/FAQSection";
 import ClosingCTA from "../components/ClosingCTA";
 import Footer from "../components/Footer";
@@ -19,13 +18,14 @@ export default async function Home() {
       <div id="main-grid-container" className="max-w-7xl mx-auto w-full flex-1 flex flex-col bg-(--bg) relative border-x border-(--border)">
         <Header version={version} />
         <main className="flex-1 divide-y divide-(--border)">
+          {/* Claude Code spend report (primary since 0.6.0) */}
           <Hero />
-          <ProblemSolution />
-          <BlueprintWorkspace />
-          <FeaturesGrid />
+          <SpendFindings />
+          <SpendHowItWorks />
+          {/* Trajectory regression gate for agents you build */}
+          <GateIntro />
           <PRCommentShowcase />
           <IntegrationShowcase />
-          <StackFitSection />
           <FAQSection />
           <ClosingCTA />
         </main>

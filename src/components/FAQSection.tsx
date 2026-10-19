@@ -7,28 +7,36 @@ import Reveal from "./Reveal";
 
 const FAQS = [
   {
-    q: "My agent is non-deterministic — will the gate flake in CI?",
-    a: "No. With AgentDiff 0.5.0, you record an N-run baseline envelope (`agentdiff record ... --runs 3` or `5`). AgentDiff calculates empirical variance bands (step counts, latency, token budgets) and uses min-TDI-of-N comparison. Harmless token jitter or reordered independent steps won't flip the gate, while real regressions (like infinite retry loops) are strictly caught.",
+    q: "Does AgentDiff upload my code or session logs?",
+    a: "No. Session logs contain your source code, so AgentDiff reads them locally, makes no network calls and has no telemetry. There is no account and no API key.",
   },
   {
-    q: "How does the /agentdiff approve bot work?",
-    a: "When a PR intentionally alters an agent's trajectory (e.g. optimizing a 4-step workflow to 2 steps), reviewers comment `/agentdiff approve` directly on the pull request. The AgentDiff bot validates that no infinite loops exist, updates the committed baseline envelope, and uses the GitHub Checks API to flip the check result to green — with zero local checkout required.",
+    q: "How do I run it?",
+    a: "With uv installed: `uvx --from agent-trajectory-diff agentdiff`. Or `pip install agent-trajectory-diff` and run `agentdiff`. From inside a Claude Code session, prefix the command with `!` to run it as a shell command; Claude sees the report too, so you can ask it what to change.",
   },
   {
-    q: "How does AgentDiff differ from LLM judges (DeepEval, Ragas, LangSmith)?",
-    a: "LLM judges score semantic nuance (e.g. 'Is this response polite?') via expensive, non-deterministic model calls that take 15–60 seconds. AgentDiff evaluates the structural execution DAG (tool sequence order, retry loops, wasted token deltas) in sub-5ms using pure graph algorithms. It gives you an instant, deterministic Exit Code 0 or 1 for your CI/CD pipeline.",
+    q: "How accurate are the dollar amounts?",
+    a: "Costs are rebuilt from the token usage Claude Code logs for every request, at Anthropic list prices per model, including cache reads and both cache-write TTLs. Each request is counted once, even across resumed or forked sessions. When a session carries Claude Code's own cost counter, that counter is used as the total, and anything the transcript doesn't show is reported as background calls. Applied to the same tokens, the price table lands within $0.02 of Claude Code's counter on a $47 session.",
   },
   {
-    q: "Do I need an API key or an external server to run a diff?",
-    a: "No. AgentDiff is a zero-telemetry Python package (`pip install agent-trajectory-diff`). It executes 100% locally in your shell or CI runner with zero outbound network calls, zero API keys, and zero cloud dependencies.",
+    q: "I'm on a Pro or Max subscription. Is this useful?",
+    a: "Yes. The figures are API-equivalent costs, which is still the clearest way to see which sessions and habits use the most of your plan.",
   },
   {
-    q: "How do I get started in an existing codebase?",
-    a: "Run `agentdiff init`. The CLI wizard auto-detects your agent framework (LangGraph, CrewAI, OpenAI Agents SDK, OpenTelemetry, etc.), generates a tailored `agentdiff.toml` config, and writes a production-ready GitHub Actions gate workflow in seconds.",
+    q: "Which agents are supported?",
+    a: "Claude Code today. The OpenAI Codex CLI is next; Gemini CLI and Cursor are planned.",
   },
   {
-    q: "What frameworks and telemetry formats are supported out of the box?",
-    a: "AgentDiff includes native zero-instrumentation ingestion for LangGraph StateGraphs, CrewAI task delegation hierarchies, raw OpenAI tool_calls, OpenTelemetry / OpenInference GenAI semantic spans, Langfuse trace exports, and LangSmith run trees.",
+    q: "CI gate: my agent is non-deterministic. Will the gate flake?",
+    a: "No. For the trajectory regression gate, you record an N-run baseline envelope (`agentdiff record ... --runs 3`). AgentDiff computes variance bands for step counts, latency and tokens and compares against the closest of the N runs, so harmless jitter doesn't flip the gate while real regressions like runaway retry loops are caught.",
+  },
+  {
+    q: "CI gate: how does /agentdiff approve work?",
+    a: "When a PR intentionally changes an agent's path, a reviewer comments `/agentdiff approve` on the pull request. The bot checks that no loops are being blessed, updates the committed baseline and flips the check to green.",
+  },
+  {
+    q: "CI gate: which frameworks can it read?",
+    a: "LangGraph, CrewAI, the OpenAI Agents SDK, OpenTelemetry / OpenInference spans, Langfuse and LangSmith exports, and a generic JSON schema.",
   },
 ];
 
@@ -63,7 +71,7 @@ export default function FAQSection() {
               Everything you <span className="text-emerald-500/90 dark:text-emerald-400">need to know</span>.
             </h2>
             <p className="mt-5 text-base sm:text-lg lg:text-xl text-(--muted) leading-relaxed font-normal max-w-3xl">
-              Deterministic agent regression testing demystified. If you have any other questions, our engineering docs and GitHub discussions are always open.
+              The spend report first, then the CI gate. Anything else, ask on GitHub.
             </p>
           </div>
         </Reveal>
@@ -111,14 +119,14 @@ export default function FAQSection() {
         {/* Bottom Support Link */}
         <Reveal delay={140}>
           <div className="mt-12 pt-8 border-t border-(--border) flex flex-wrap items-center justify-between gap-4 text-xs text-(--muted)">
-            <span>Have a unique custom framework or telemetry format?</span>
+            <span>Another agent or log format you want supported?</span>
             <Link
-              href="https://github.com/agentdiff/agentdiff/discussions"
+              href="https://github.com/kerrshift/agentdiff/issues"
               target="_blank"
               rel="noreferrer"
               className="inline-flex items-center gap-1.5 font-semibold text-(--fg) hover:underline"
             >
-              <span>Ask in GitHub Discussions</span>
+              <span>Open an issue on GitHub</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
