@@ -168,15 +168,16 @@ export default function QuickstartPage() {
                 <CodeBlock
                   language="bash"
                   filename="terminal"
-                  code={`# Run once with uv (no install)
+                  code={`# Inside Claude Code: install the plugin once
+/plugin install agentdiff --marketplace kerrshift/agentdiff
+/agentdiff:report
+
+# Any terminal with Node 18+
+npx agentdiff
+
+# Python: run once with uv, or install
 uvx --from agent-trajectory-diff agentdiff
-
-# Or install it
-pip install agent-trajectory-diff
-agentdiff
-
-# Inside a Claude Code session, prefix with !
-!uvx --from agent-trajectory-diff agentdiff`}
+pip install agent-trajectory-diff   # or pipx / uv tool install`}
                 />
               </div>
               <div className="rounded-2xl border border-(--border) bg-(--surface) overflow-hidden shadow-2xs">

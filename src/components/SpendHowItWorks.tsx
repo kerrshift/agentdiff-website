@@ -3,28 +3,30 @@
 import React from "react";
 import { Terminal, Package, MessageSquare, ShieldCheck } from "lucide-react";
 import Reveal from "./Reveal";
-import CopyCommand, { PIP_COMMAND, RUN_COMMAND } from "./CopyCommand";
+import CopyCommand, { PIP_COMMAND, PLUGIN_COMMAND, RUN_COMMAND, UVX_COMMAND } from "./CopyCommand";
 
 const WAYS = [
   {
+    icon: MessageSquare,
+    title: "Inside Claude Code",
+    body: "Install the plugin once, then run /agentdiff:report in any session. Claude shows the report and explains what to change. It can also pick it up when you ask why usage is high.",
+    cmd: PLUGIN_COMMAND,
+  },
+  {
     icon: Terminal,
-    title: "Run once, no install",
-    body: "With uv installed, this fetches AgentDiff into a throwaway environment and prints the report.",
+    title: "Any terminal with Node",
+    body: "npx fetches a tiny launcher that runs AgentDiff with uv, pipx or your Python 3.10+, whichever you have.",
     cmd: RUN_COMMAND,
   },
   {
     icon: Package,
-    title: "Install it",
-    body: "Then just type agentdiff. Works with pip, pipx or uv tool install.",
-    cmd: PIP_COMMAND,
-  },
-  {
-    icon: MessageSquare,
-    title: "From inside Claude Code",
-    body: "Prefix with ! to run it as a shell command without leaving your session. Claude sees the report too, so you can ask it what to change.",
-    cmd: `!${RUN_COMMAND}`,
+    title: "Python people",
+    body: "Run it once with uv, or install it with pip, pipx or uv tool install. The command is agentdiff.",
+    cmd: UVX_COMMAND,
   },
 ];
+
+const ALSO = [PIP_COMMAND, "pipx install agent-trajectory-diff", "npm i -g agentdiff", "/agentdiff:report --since 30d"];
 
 const OPTIONS = [
   ["agentdiff", "last 7 days (same as agentdiff sessions)"],
@@ -74,6 +76,15 @@ export default function SpendHowItWorks() {
                 <p className="text-sm text-(--muted) leading-relaxed flex-1">{body}</p>
                 <CopyCommand cmd={cmd} wrap />
               </div>
+            ))}
+          </div>
+        </Reveal>
+
+        <Reveal delay={100}>
+          <div className="mt-5 flex flex-wrap gap-2 text-xs font-mono text-(--muted)">
+            <span className="font-sans text-(--faint) mr-1 self-center">Also:</span>
+            {ALSO.map((c) => (
+              <code key={c} className="px-2 py-1 rounded-md border border-(--border) bg-(--surface)">{c}</code>
             ))}
           </div>
         </Reveal>

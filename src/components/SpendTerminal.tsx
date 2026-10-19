@@ -10,7 +10,7 @@ interface Line {
 // A real week from the author's own Claude Code logs (session names changed).
 // Keep in sync with the README example in kerrshift/agentdiff.
 const LINES: Line[] = [
-  { t: "$ uvx --from agent-trajectory-diff agentdiff", c: "text-(--fg) font-semibold" },
+  { t: "$ npx agentdiff", c: "text-(--fg) font-semibold" },
   { t: "" },
   { t: "AgentDiff  ·  Claude Code  ·  last 7d", c: "text-(--fg) font-semibold" },
   { t: "12 sessions · 7 projects · $314.61", c: "text-(--muted)" },

@@ -12,7 +12,7 @@ const FAQS = [
   },
   {
     q: "How do I run it?",
-    a: "With uv installed: `uvx --from agent-trajectory-diff agentdiff`. Or `pip install agent-trajectory-diff` and run `agentdiff`. From inside a Claude Code session, prefix the command with `!` to run it as a shell command; Claude sees the report too, so you can ask it what to change.",
+    a: "Inside Claude Code, install the plugin with `/plugin install agentdiff --marketplace kerrshift/agentdiff` and run `/agentdiff:report`. In a terminal, `npx agentdiff` (Node 18+) or `uvx --from agent-trajectory-diff agentdiff` (uv). To install it, use `pip install agent-trajectory-diff`, `pipx install agent-trajectory-diff` or `npm i -g agentdiff`. The command is `agentdiff`. Both the npm launcher and the plugin work with whatever you have: uv, pipx, or Python 3.10+.",
   },
   {
     q: "How accurate are the dollar amounts?",

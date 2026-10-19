@@ -3,7 +3,9 @@
 import React, { useState } from "react";
 import { Copy, Check } from "lucide-react";
 
-export const RUN_COMMAND = "uvx --from agent-trajectory-diff agentdiff";
+export const RUN_COMMAND = "npx agentdiff";
+export const UVX_COMMAND = "uvx --from agent-trajectory-diff agentdiff";
+export const PLUGIN_COMMAND = "/plugin install agentdiff --marketplace kerrshift/agentdiff";
 export const PIP_COMMAND = "pip install agent-trajectory-diff";
 
 export default function CopyCommand({
@@ -40,7 +42,7 @@ export default function CopyCommand({
           dark ? "text-[#E8EAED]" : "text-(--fg)"
         }`}
       >
-        <span className="text-(--faint) select-none">${" "}</span>
+        {!cmd.startsWith("/") && <span className="text-(--faint) select-none">${" "}</span>}
         {cmd}
       </span>
       <button

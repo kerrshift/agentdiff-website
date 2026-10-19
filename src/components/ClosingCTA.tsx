@@ -6,7 +6,7 @@ import { ArrowRight, Check, Copy, Terminal } from "lucide-react";
 import { Github } from "@lobehub/icons";
 import Reveal from "./Reveal";
 
-const RUN_COMMAND = "uvx --from agent-trajectory-diff agentdiff";
+const RUN_COMMAND = "npx agentdiff";
 const GITHUB_ACTION_SNIPPET = `- uses: kerrshift/agentdiff/.github/actions/agentdiff-check@v0.6.0
   with:
     baseline: baselines/default.envelope.json

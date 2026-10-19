@@ -45,9 +45,9 @@ export default function Hero() {
             </Link>
           </div>
           <p className="mt-4 text-xs text-(--faint)">
-            Needs <a className="underline hover:text-(--fg)" href="https://docs.astral.sh/uv/" target="_blank" rel="noreferrer">uv</a>, or{" "}
-            <code className="font-mono">pip install agent-trajectory-diff</code> and run{" "}
-            <code className="font-mono">agentdiff</code>.
+            Or <code className="font-mono">uvx --from agent-trajectory-diff agentdiff</code>, or{" "}
+            <code className="font-mono">/agentdiff:report</code> inside{" "}
+            <a className="underline hover:text-(--fg)" href="#how-it-works">Claude Code</a>.
           </p>
         </Reveal>
 
