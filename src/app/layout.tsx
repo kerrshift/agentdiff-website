@@ -34,11 +34,12 @@ export const metadata: Metadata = {
     template: "%s | AgentDiff",
   },
   description:
-    "One command reads your local Claude Code session logs and shows where the money went and what was avoidable: long context, cache rebuilds, stuck retries. Plus a trajectory regression gate for agents you build.",
+    "One command reads your local Claude Code and Codex session logs and shows where the money went and what was avoidable: long context, cache rebuilds, stuck retries. Plus a trajectory regression gate for agents you build.",
   applicationName: "AgentDiff",
   keywords: [
     "Claude Code cost",
     "Claude Code usage",
+    "Codex CLI cost",
     "AI coding agent spend",
     "token usage report",
     "prompt caching",
@@ -78,7 +79,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "AgentDiff - See what your AI coding agent did, and what it cost",
-    description: "A local spend report for Claude Code: where the money went and what was avoidable. One command, nothing uploaded.",
+    description: "A local spend report for Claude Code and Codex: where the money went and what was avoidable. One command, nothing uploaded.",
     url: "https://agentdiff.app",
     siteName: "AgentDiff",
     type: "website",
@@ -96,7 +97,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "AgentDiff - See what your AI coding agent did, and what it cost",
-    description: "A local spend report for Claude Code: where the money went and what was avoidable. One command, nothing uploaded.",
+    description: "A local spend report for Claude Code and Codex: where the money went and what was avoidable. One command, nothing uploaded.",
     images: ["/og.png"],
   },
   appleWebApp: {
@@ -123,7 +124,7 @@ const jsonLd = {
       url: "https://agentdiff.app/",
       name: "AgentDiff",
       description:
-        "See what your AI coding agent did, and what it cost. A local spend report for Claude Code sessions, plus a trajectory regression gate for agents you build.",
+        "See what your AI coding agent did, and what it cost. A local spend report for Claude Code and Codex sessions, plus a trajectory regression gate for agents you build.",
       publisher: { "@id": "https://agentdiff.app/#organization" },
     },
     {
@@ -141,13 +142,13 @@ const jsonLd = {
       operatingSystem: "Any",
       url: "https://agentdiff.app/",
       description:
-        "AgentDiff reads local Claude Code session logs and reports where spend went and what was avoidable. It also gates agents you build in CI against trajectory regressions.",
+        "AgentDiff reads local Claude Code and Codex session logs and reports where spend went and what was avoidable. It also gates agents you build in CI against trajectory regressions.",
       offers: {
         "@type": "Offer",
         price: "0",
         priceCurrency: "USD",
       },
-      softwareVersion: "0.6.0",
+      softwareVersion: "0.7.0",
     },
   ],
 };

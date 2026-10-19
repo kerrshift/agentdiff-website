@@ -33,6 +33,7 @@ const OPTIONS = [
   ["agentdiff --since 30d", "24h, 7d, 30d, 12w … or all"],
   ["agentdiff --project api", "only projects whose name contains “api”"],
   ["agentdiff --top 10", "list more findings and sessions"],
+  ["agentdiff --agent codex", "only Codex (or claude, all)"],
   ["agentdiff --json", "machine-readable output"],
 ];
 
@@ -40,6 +41,7 @@ const NUMBERS = [
   "Reads ~/.claude/projects (or $CLAUDE_CONFIG_DIR), including subagent transcripts.",
   "Counts each billed request once. Claude Code repeats usage on every content block, and resumed or forked sessions copy their parent's history.",
   "Prices per model at Anthropic list prices, with cache reads and both cache-write TTLs (5-minute and 1-hour). Fast mode included.",
+  "Reads Codex rollouts from ~/.codex/sessions ($CODEX_HOME) and prices each turn with the model it used, including OpenAI's long-context and Fast tiers. Codex logs carry no cost, so those figures are API-equivalent estimates.",
   "Uses Claude Code's own cost counter as the total when a session has one; the gap shows up as background calls not in the transcript.",
   "On Pro/Max plans these are API-equivalent costs: still the clearest view of which sessions and habits use the most.",
 ];
@@ -57,7 +59,7 @@ export default function SpendHowItWorks() {
               One command. <span className="text-emerald-500/90 dark:text-emerald-400">Zero setup.</span>
             </h2>
             <p className="mt-5 text-base sm:text-lg lg:text-xl text-(--muted) leading-relaxed font-normal max-w-3xl">
-              Claude Code already writes a log of every session to disk. AgentDiff reads it. Nothing
+              Claude Code and Codex already write a log of every session to disk. AgentDiff reads them. Nothing
               to configure, no account, no key.
             </p>
           </div>
@@ -126,7 +128,7 @@ export default function SpendHowItWorks() {
 
         <Reveal delay={160}>
           <p className="mt-10 text-xs text-(--faint)">
-            Supported today: Claude Code. Next: OpenAI Codex CLI. Planned: Gemini CLI, Cursor.
+            Supported: Claude Code and OpenAI Codex CLI. Planned: Gemini CLI, Cursor.
           </p>
         </Reveal>
       </div>

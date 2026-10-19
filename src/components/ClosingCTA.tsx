@@ -7,7 +7,7 @@ import { Github } from "@lobehub/icons";
 import Reveal from "./Reveal";
 
 const RUN_COMMAND = "npx @kerrshift/agentdiff";
-const GITHUB_ACTION_SNIPPET = `- uses: kerrshift/agentdiff/.github/actions/agentdiff-check@v0.6.0
+const GITHUB_ACTION_SNIPPET = `- uses: kerrshift/agentdiff/.github/actions/agentdiff-check@v0.7.0
   with:
     baseline: baselines/default.envelope.json
     candidate: traces/candidate.json`;
