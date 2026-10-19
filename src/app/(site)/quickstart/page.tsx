@@ -7,9 +7,9 @@ import CodeBlock from "@/components/CodeBlock";
 const SITE_URL = "https://agentdiff.app";
 
 export const metadata: Metadata = {
-  title: "Quickstart — Claude Code spend report and CI gate",
+  title: "Quickstart — Claude Code & Codex spend report, and CI gate",
   description:
-    "Run the AgentDiff spend report on your Claude Code sessions in one command, or set up the trajectory regression gate for agents you build.",
+    "Run the AgentDiff spend report on your Claude Code and Codex sessions in one command, or set up the trajectory regression gate for agents you build.",
   keywords: [
     "AgentDiff quickstart",
     "Claude Code cost report",
@@ -121,7 +121,7 @@ export default function QuickstartPage() {
                 Your spend report in <span className="text-emerald-500/90 dark:text-emerald-400">one command</span>.
               </h1>
               <p className="mt-6 text-base sm:text-lg lg:text-xl text-(--muted) leading-relaxed max-w-3xl font-normal">
-                No API keys, no accounts, nothing uploaded. Start with the Claude Code spend report; if you build your own agents, the CI gate is further down this page.
+                No API keys, no accounts, nothing uploaded. Start with the spend report for Claude Code and Codex; if you build your own agents, the CI gate is further down this page.
               </p>
 
               {/* Fast Proof Points */}
@@ -152,13 +152,13 @@ export default function QuickstartPage() {
           <Reveal>
             <div className="max-w-3xl mb-12">
               <span className="text-xs uppercase tracking-[0.18em] text-(--faint) block mb-3 font-medium">
-                Claude Code spend report
+                Claude Code &amp; Codex spend report
               </span>
               <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold tracking-[-0.035em] text-(--fg) leading-[1.1]">
                 Run it. Read it. Change one habit.
               </h2>
               <p className="mt-5 text-base text-(--muted) leading-relaxed">
-                AgentDiff reads the session logs Claude Code keeps in <code className="text-xs text-(--fg) font-mono bg-(--surface-2) px-1.5 py-0.5 rounded border border-(--border)">~/.claude/projects</code> and prints where the money went and what was avoidable.
+                AgentDiff reads the session logs Claude Code keeps in <code className="text-xs text-(--fg) font-mono bg-(--surface-2) px-1.5 py-0.5 rounded border border-(--border)">~/.claude/projects</code> and Codex keeps in <code className="text-xs text-(--fg) font-mono bg-(--surface-2) px-1.5 py-0.5 rounded border border-(--border)">~/.codex/sessions</code>, and prints where the money went and what was avoidable.
               </p>
             </div>
           </Reveal>
@@ -168,15 +168,16 @@ export default function QuickstartPage() {
                 <CodeBlock
                   language="bash"
                   filename="terminal"
-                  code={`# Run once with uv (no install)
+                  code={`# Inside Claude Code: install the plugin once
+/plugin install agentdiff --marketplace kerrshift/agentdiff
+/agentdiff:report
+
+# Any terminal with Node 18+
+npx @kerrshift/agentdiff
+
+# Python: run once with uv, or install
 uvx --from agent-trajectory-diff agentdiff
-
-# Or install it
-pip install agent-trajectory-diff
-agentdiff
-
-# Inside a Claude Code session, prefix with !
-!uvx --from agent-trajectory-diff agentdiff`}
+pip install agent-trajectory-diff   # or pipx / uv tool install`}
                 />
               </div>
               <div className="rounded-2xl border border-(--border) bg-(--surface) overflow-hidden shadow-2xs">
@@ -185,6 +186,7 @@ agentdiff
                   filename="options"
                   code={`agentdiff                   # last 7 days
 agentdiff --since 30d       # 24h, 7d, 30d, 12w … or all
+agentdiff --agent codex     # only Codex (or claude)
 agentdiff --project api     # filter by project name
 agentdiff --top 10          # more findings and sessions
 agentdiff --json            # machine-readable

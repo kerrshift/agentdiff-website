@@ -12,11 +12,11 @@ const FAQS = [
   },
   {
     q: "How do I run it?",
-    a: "With uv installed: `uvx --from agent-trajectory-diff agentdiff`. Or `pip install agent-trajectory-diff` and run `agentdiff`. From inside a Claude Code session, prefix the command with `!` to run it as a shell command; Claude sees the report too, so you can ask it what to change.",
+    a: "Inside Claude Code, install the plugin with `/plugin install agentdiff --marketplace kerrshift/agentdiff` and run `/agentdiff:report`. In a terminal, `npx @kerrshift/agentdiff` (Node 18+) or `uvx --from agent-trajectory-diff agentdiff` (uv). To install it, use `pip install agent-trajectory-diff`, `pipx install agent-trajectory-diff` or `npm i -g @kerrshift/agentdiff`. The command is `agentdiff`. Both the npm launcher and the plugin work with whatever you have: uv, pipx, or Python 3.10+.",
   },
   {
     q: "How accurate are the dollar amounts?",
-    a: "Costs are rebuilt from the token usage Claude Code logs for every request, at Anthropic list prices per model, including cache reads and both cache-write TTLs. Each request is counted once, even across resumed or forked sessions. When a session carries Claude Code's own cost counter, that counter is used as the total, and anything the transcript doesn't show is reported as background calls. Applied to the same tokens, the price table lands within $0.02 of Claude Code's counter on a $47 session.",
+    a: "Costs are rebuilt from the token usage Claude Code logs for every request, at Anthropic list prices per model, including cache reads and both cache-write TTLs. Each request is counted once, even across resumed or forked sessions. When a session carries Claude Code's own cost counter, that counter is used as the total, and anything the transcript doesn't show is reported as background calls. Applied to the same tokens, the price table lands within $0.02 of Claude Code's counter on a $47 session. Codex logs carry no cost, so Codex figures are API-equivalent estimates at OpenAI list prices.",
   },
   {
     q: "I'm on a Pro or Max subscription. Is this useful?",
@@ -24,7 +24,7 @@ const FAQS = [
   },
   {
     q: "Which agents are supported?",
-    a: "Claude Code today. The OpenAI Codex CLI is next; Gemini CLI and Cursor are planned.",
+    a: "Claude Code and the OpenAI Codex CLI (new in 0.7). One report covers both; use `--agent codex` or `--agent claude` to pick one. Gemini CLI and Cursor are planned.",
   },
   {
     q: "CI gate: my agent is non-deterministic. Will the gate flake?",

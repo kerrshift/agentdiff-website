@@ -6,6 +6,7 @@ import { ArrowRight } from "lucide-react";
 import SpendTerminal from "./SpendTerminal";
 import Reveal from "./Reveal";
 import CopyCommand from "./CopyCommand";
+import { ClaudeCode, Codex } from "@lobehub/icons";
 
 export default function Hero() {
   return (
@@ -17,7 +18,7 @@ export default function Hero() {
         <Reveal animate>
           <span className="inline-flex items-center gap-2 text-[11px] font-mono text-(--muted) border border-(--border) rounded-full px-3 py-1 bg-(--surface) mb-6">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-            New in 0.6 · Claude Code spend report
+            New in 0.7 · now reads Codex too
           </span>
 
           <h1 className="text-3xl sm:text-5xl lg:text-[4.25rem] font-extrabold tracking-[-0.035em] text-(--fg) leading-[1.12] mx-auto max-w-4xl text-balance">
@@ -27,10 +28,16 @@ export default function Hero() {
           </h1>
 
           <p className="max-w-3xl mx-auto text-base sm:text-lg lg:text-xl text-(--fg)/80 dark:text-(--fg)/85 leading-relaxed mt-5 mb-8 font-normal">
-            One command reads the Claude Code session logs already on your machine and tells you
+            One command reads the Claude Code and Codex session logs already on your machine and tells you
             where the money went and what was avoidable: long context re-sent every turn, caches
             rebuilt after breaks, stuck retries. No config, no API key, nothing uploaded.
           </p>
+
+          <div className="mb-8 -mt-2 flex items-center justify-center gap-5 text-sm font-semibold text-(--fg)">
+            <span className="text-(--faint) font-medium">Works with</span>
+            <span className="inline-flex items-center gap-2"><ClaudeCode.Color size={20} />Claude Code</span>
+            <span className="inline-flex items-center gap-2"><Codex.Color size={20} />Codex</span>
+          </div>
 
           <div className="flex flex-wrap items-center justify-center gap-3.5">
             <div id="install-section" className="scroll-mt-24 max-w-full">
@@ -45,9 +52,9 @@ export default function Hero() {
             </Link>
           </div>
           <p className="mt-4 text-xs text-(--faint)">
-            Needs <a className="underline hover:text-(--fg)" href="https://docs.astral.sh/uv/" target="_blank" rel="noreferrer">uv</a>, or{" "}
-            <code className="font-mono">pip install agent-trajectory-diff</code> and run{" "}
-            <code className="font-mono">agentdiff</code>.
+            Or <code className="font-mono">uvx --from agent-trajectory-diff agentdiff</code>, or{" "}
+            <code className="font-mono">/agentdiff:report</code> inside{" "}
+            <a className="underline hover:text-(--fg)" href="#how-it-works">Claude Code</a>.
           </p>
         </Reveal>
 

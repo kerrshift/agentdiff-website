@@ -3,34 +3,37 @@
 import React from "react";
 import { Terminal, Package, MessageSquare, ShieldCheck } from "lucide-react";
 import Reveal from "./Reveal";
-import CopyCommand, { PIP_COMMAND, RUN_COMMAND } from "./CopyCommand";
+import CopyCommand, { PIP_COMMAND, PLUGIN_COMMAND, RUN_COMMAND, UVX_COMMAND } from "./CopyCommand";
 
 const WAYS = [
   {
+    icon: MessageSquare,
+    title: "Inside Claude Code",
+    body: "Install the plugin once, then run /agentdiff:report in any session. Claude shows the report and explains what to change. It can also pick it up when you ask why usage is high.",
+    cmd: PLUGIN_COMMAND,
+  },
+  {
     icon: Terminal,
-    title: "Run once, no install",
-    body: "With uv installed, this fetches AgentDiff into a throwaway environment and prints the report.",
+    title: "Any terminal with Node",
+    body: "npx fetches a tiny launcher that runs AgentDiff with uv, pipx or your Python 3.10+, whichever you have.",
     cmd: RUN_COMMAND,
   },
   {
     icon: Package,
-    title: "Install it",
-    body: "Then just type agentdiff. Works with pip, pipx or uv tool install.",
-    cmd: PIP_COMMAND,
-  },
-  {
-    icon: MessageSquare,
-    title: "From inside Claude Code",
-    body: "Prefix with ! to run it as a shell command without leaving your session. Claude sees the report too, so you can ask it what to change.",
-    cmd: `!${RUN_COMMAND}`,
+    title: "Python people",
+    body: "Run it once with uv, or install it with pip, pipx or uv tool install. The command is agentdiff.",
+    cmd: UVX_COMMAND,
   },
 ];
+
+const ALSO = [PIP_COMMAND, "pipx install agent-trajectory-diff", "npm i -g @kerrshift/agentdiff", "/agentdiff:report --since 30d"];
 
 const OPTIONS = [
   ["agentdiff", "last 7 days (same as agentdiff sessions)"],
   ["agentdiff --since 30d", "24h, 7d, 30d, 12w … or all"],
   ["agentdiff --project api", "only projects whose name contains “api”"],
   ["agentdiff --top 10", "list more findings and sessions"],
+  ["agentdiff --agent codex", "only Codex (or claude, all)"],
   ["agentdiff --json", "machine-readable output"],
 ];
 
@@ -38,6 +41,7 @@ const NUMBERS = [
   "Reads ~/.claude/projects (or $CLAUDE_CONFIG_DIR), including subagent transcripts.",
   "Counts each billed request once. Claude Code repeats usage on every content block, and resumed or forked sessions copy their parent's history.",
   "Prices per model at Anthropic list prices, with cache reads and both cache-write TTLs (5-minute and 1-hour). Fast mode included.",
+  "Reads Codex rollouts from ~/.codex/sessions ($CODEX_HOME) and prices each turn with the model it used, including OpenAI's long-context and Fast tiers. Codex logs carry no cost, so those figures are API-equivalent estimates.",
   "Uses Claude Code's own cost counter as the total when a session has one; the gap shows up as background calls not in the transcript.",
   "On Pro/Max plans these are API-equivalent costs: still the clearest view of which sessions and habits use the most.",
 ];
@@ -55,7 +59,7 @@ export default function SpendHowItWorks() {
               One command. <span className="text-emerald-500/90 dark:text-emerald-400">Zero setup.</span>
             </h2>
             <p className="mt-5 text-base sm:text-lg lg:text-xl text-(--muted) leading-relaxed font-normal max-w-3xl">
-              Claude Code already writes a log of every session to disk. AgentDiff reads it. Nothing
+              Claude Code and Codex already write a log of every session to disk. AgentDiff reads them. Nothing
               to configure, no account, no key.
             </p>
           </div>
@@ -74,6 +78,15 @@ export default function SpendHowItWorks() {
                 <p className="text-sm text-(--muted) leading-relaxed flex-1">{body}</p>
                 <CopyCommand cmd={cmd} wrap />
               </div>
+            ))}
+          </div>
+        </Reveal>
+
+        <Reveal delay={100}>
+          <div className="mt-5 flex flex-wrap gap-2 text-xs font-mono text-(--muted)">
+            <span className="font-sans text-(--faint) mr-1 self-center">Also:</span>
+            {ALSO.map((c) => (
+              <code key={c} className="px-2 py-1 rounded-md border border-(--border) bg-(--surface)">{c}</code>
             ))}
           </div>
         </Reveal>
@@ -115,7 +128,7 @@ export default function SpendHowItWorks() {
 
         <Reveal delay={160}>
           <p className="mt-10 text-xs text-(--faint)">
-            Supported today: Claude Code. Next: OpenAI Codex CLI. Planned: Gemini CLI, Cursor.
+            Supported: Claude Code and OpenAI Codex CLI. Planned: Gemini CLI, Cursor.
           </p>
         </Reveal>
       </div>
